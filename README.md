@@ -1,5 +1,6 @@
 🧠 FocusFlow
 
+📸 FocusFlow UI Preview 
 
 
 FocusFlow is an open-source productivity app built with Flutter, designed to help you focus, manage time effectively, and achieve deep work states with minimal distraction.
@@ -55,8 +56,6 @@ Open issues for bugs, suggestions, or improvements
 Create pull requests with new features or fixes
 
 Help with translations, UI design tweaks, or documentation improvements
-
-📸 FocusFlow UI Preview 
 
 
 🚀 Let's Make FocusFlow the Best Productivity Tool Together!
