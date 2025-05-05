@@ -1,16 +1,64 @@
-# focusflow
+🧠 FocusFlow
 
-A new Flutter project.
+📸 FocusFlow UI Preview 
 
-## Getting Started
+![FocusFlow Preview](home.png)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+FocusFlow is an open-source productivity app built with Flutter, designed to help you focus, manage time effectively, and achieve deep work states with minimal distraction.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+✨ Features
+⏳ Focus Sessions — Start focus timers based on techniques like Pomodoro, Deep Work, or custom flows.
+
+📈 Progress Tracking — See your completed sessions, weekly streaks, and productivity graphs.
+
+🔔 Smart Reminders — Gentle nudges to stay focused without being intrusive.
+
+🎯 Goal Setting — Set daily or weekly goals for focused work.
+
+🎨 Minimal UI — A distraction-free, elegant interface optimized for clarity.
+
+🌙 Dark Mode — Comfortable on the eyes, perfect for late-night focus.
+
+🏗️ Architecture
+FocusFlow follows modern Clean Architecture principles:
+
+Data Layer — API/local storage management.
+
+Domain Layer — Pure business logic (entities, repositories, use cases).
+
+Presentation Layer — UI screens and interaction logic (state management).
+
+Key Libraries Used:
+
+flutter
+
+flutter_bloc
+
+get_it
+
+dio
+
+dartz
+
+shared_preferences (for saving session data)
+
+🚀 Getting Started
+Clone the repository and let's start.
+
+📄 License
+This project is licensed under the MIT License — see the LICENSE file for details.
+
+❤️ Contributing
+Contributions are welcome and encouraged!
+You can:
+
+Open issues for bugs, suggestions, or improvements
+
+Create pull requests with new features or fixes
+
+Help with translations, UI design tweaks, or documentation improvements
+
+
+🚀 Let's Make FocusFlow the Best Productivity Tool Together!
