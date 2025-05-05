@@ -107,38 +107,38 @@ class _TaskViewState extends State<TaskView> {
             taskStatus: "Done!",
           ),
         ),
-        // BlocBuilder<TaskCubit, TaskState>(
-        //   builder: (context, state) {
-        //     if (state is TaskLoaded) {
-        //       final tasks = state.taskList;
-        //       return SliverList.builder(
-        //         itemCount: tasks.length,
-        //         itemBuilder: (context, index) {
-        //           return SizedBox(
-        //             height: 60,
-        //             child: TaskListTile(
-        //               isClicked: tasks[index][1],
-        //               taskName: "${tasks[index][0]}",
-        //               taskStatus: tasks[index][1] ? "Done!" : "InProgress",
-        //               onChanged: (value) {
-        //                 context.read<TaskCubit>().toggleTask(
-        //                   index,
-        //                   value ?? false,
-        //                 );
-        //               },
-        //               onPressed: (context) {
-        //                 context.read<TaskCubit>().deleteTask(index);
-        //               },
-        //             ),
-        //           );
-        //         },
-        //       );
-        //     }
-        //     return SliverToBoxAdapter(
-        //       child: Center(child: CircularProgressIndicator()),
-        //     );
-        //   },
-        // ),
+        BlocBuilder<TaskCubit, TaskState>(
+          builder: (context, state) {
+            if (state is TaskLoaded) {
+              final tasks = state.taskList;
+              return SliverList.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    height: 60,
+                    child: TaskListTile(
+                      isClicked: tasks[index][1],
+                      taskName: "${tasks[index][0]}",
+                      taskStatus: tasks[index][1] ? "Done!" : "InProgress",
+                      onChanged: (value) {
+                        context.read<TaskCubit>().toggleTask(
+                          index,
+                          value ?? false,
+                        );
+                      },
+                      onPressed: (context) {
+                        context.read<TaskCubit>().deleteTask(index);
+                      },
+                    ),
+                  );
+                },
+              );
+            }
+            return SliverToBoxAdapter(
+              child: Center(child: CircularProgressIndicator()),
+            );
+          },
+        ),
       ],
     );
   }

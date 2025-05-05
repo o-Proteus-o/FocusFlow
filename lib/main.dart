@@ -13,10 +13,7 @@ void main() async {
   await Hive.openBox("eventBox");
 
   runApp(
-    BlocProvider(
-      create: (context) => TaskCubit()..loadTasks(),
-      child: const FocusFlow(),
-    ),
+    BlocProvider(create: (context) => TaskCubit(), child: const FocusFlow()),
   );
 }
 
@@ -27,8 +24,6 @@ class FocusFlow extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // routeInformationParser: AppConfigRoute().goRouter.routeInformationParser,
-      // routerDelegate: AppConfigRoute().goRouter.routerDelegate,
       home: const MainView(),
     );
   }
