@@ -3,33 +3,44 @@ import 'package:focusflow/Features/Home/presentation/manager/task_cubit/task_cub
 import 'package:hive_flutter/hive_flutter.dart';
 
 class TaskCubit extends Cubit<TaskState> {
-  TaskCubit() : super(TaskInitial());
+  TaskCubit() : super(TaskInitial()) {
+    loadTasks();
+  }
 
-  final mybox = Hive.box("taskBox");
-  List<dynamic> toDoList = [];
+  final mybox = Hive.box("taskBox"); // Consistent box name
 
   void loadTasks() {
-    toDoList = mybox.get("TASKLIST", defaultValue: []);
-    emit(TaskLoaded(List.from(toDoList)));
+    final tasks = mybox.get("TASKLIST", defaultValue: []);
+    emit(TaskLoaded(List.from(tasks)));
   }
 
   void addTask(String title) {
-    toDoList.add([title, false]);
-    _updateHive();
+    final currentState = state;
+    if (currentState is TaskLoaded) {
+      final newList = List.from(currentState.taskList);
+      newList.add([title, false]);
+      mybox.put("TASKLIST", newList);
+      emit(TaskLoaded(newList));
+    }
   }
 
   void toggleTask(int index, bool value) {
-    toDoList[index][1] = value;
-    _updateHive();
+    final currentState = state;
+    if (currentState is TaskLoaded) {
+      final newList = List.from(currentState.taskList);
+      newList[index][1] = value;
+      mybox.put("TASKLIST", newList);
+      emit(TaskLoaded(newList));
+    }
   }
 
   void deleteTask(int index) {
-    toDoList.removeAt(index);
-    _updateHive();
-  }
-
-  void _updateHive() {
-    mybox.put("TASKLIST", toDoList);
-    emit(TaskLoaded(List.from(toDoList)));
+    final currentState = state;
+    if (currentState is TaskLoaded) {
+      final newList = List.from(currentState.taskList);
+      newList.removeAt(index);
+      mybox.put("TASKLIST", newList);
+      emit(TaskLoaded(newList));
+    }
   }
 }

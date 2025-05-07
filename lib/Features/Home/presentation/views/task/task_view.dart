@@ -21,10 +21,10 @@ class _TaskViewState extends State<TaskView> {
   var format = DateFormat("MMM d");
   var formated = DateFormat("EEEE");
   TaskmodelDb taskmodelDb = TaskmodelDb();
-  var mybox = Hive.box("taskBox");
 
   @override
   void initState() {
+    var mybox = Hive.box("taskBox");
     if (mybox.get("TODOLIST") == null) {
       taskmodelDb.createInitialData();
     } else {
@@ -67,7 +67,13 @@ class _TaskViewState extends State<TaskView> {
             background: TaskListAppBarr(format: format, formated: formated),
           ),
         ),
-        BlocBuilder<TaskCubit, TaskState>(
+        BlocConsumer<TaskCubit, TaskState>(
+          listener: (context, state) {
+            if (state is TaskLoaded) {
+              final tasks = state.taskList;
+              taskmodelDb.toDoList = tasks;
+            }
+          },
           builder: (context, state) {
             if (state is TaskLoaded) {
               final tasks = state.taskList;
@@ -93,21 +99,22 @@ class _TaskViewState extends State<TaskView> {
                   );
                 },
               );
-            }
-            return SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  "Make A New Task \nAnd Start Your Journey",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackColor.withOpacity(.6),
+            } else {
+              return SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    "Make A New Task \nAnd Start Your Journey",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.blackColor.withOpacity(.6),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-            );
+              );
+            }
           },
         ),
       ],

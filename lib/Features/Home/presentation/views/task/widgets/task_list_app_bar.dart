@@ -51,31 +51,29 @@ class _TaskListAppBarrState extends State<TaskListAppBarr> {
             ],
           ),
         ),
-        // Expanded(
-        //   child: BlocConsumer<DateTimeCubit, DateTimeState>(
-        //     listener: (context, state) {
-        //     },
-        //     builder: (context, state) {
-        //       return DatePicker(
-        //         DateTime.now(),
-        //         initialSelectedDate: DateTime.now(),
-        //         selectedTextColor: AppColors.greyColor,
-        //         selectionColor: AppColors.blackColor,
-        //         onDateChange: (date) {
-        //           setState(() {
-        //             showOmniDateTimePicker(
-        //               type: OmniDateTimePickerType.dateAndTime,
-        //               context: context,
-        //               firstDate: DateTime(2019),
-        //               lastDate: DateTime(2100),
-        //               initialDate: date,
-        //             );
-        //           });
-        //         },
-        //       );
-        //     },
-        //   ),
-        // ),
+        Expanded(
+          child: BlocBuilder<DateTimeCubit, DateTimeState>(
+            builder: (context, state) {
+              return DatePicker(
+                DateTime.now(),
+                initialSelectedDate: DateTime.now(),
+                selectedTextColor: AppColors.greyColor,
+                selectionColor: AppColors.blackColor,
+                onDateChange: (date) {
+                  setState(() async {
+                    final DateTime? picked = await showOmniDateTimePicker(
+                      type: OmniDateTimePickerType.dateAndTime,
+                      context: context,
+                      firstDate: DateTime(2019),
+                      lastDate: DateTime(2100),
+                      initialDate: date,
+                    );
+                  });
+                },
+              );
+            },
+          ),
+        ),
       ],
     );
   }
