@@ -32,12 +32,6 @@ class _AddItemsState extends State<AddItems> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 20),
-          Text(
-            "Add Task",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextFormField(
@@ -49,7 +43,7 @@ class _AddItemsState extends State<AddItems> {
               ),
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
           Row(
             children: [
               Expanded(
