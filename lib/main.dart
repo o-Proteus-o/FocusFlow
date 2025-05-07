@@ -8,6 +8,7 @@ import 'package:hive_flutter/adapters.dart';
 // import 'package:focusflow/app_config_route.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox("taskBox");
   await Hive.openBox("eventBox");
