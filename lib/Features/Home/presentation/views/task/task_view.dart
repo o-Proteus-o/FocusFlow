@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:focusflow/Features/Home/data/model/event_model.dart';
 import 'package:focusflow/Features/Home/data/model/task_model.dart';
+import 'package:focusflow/Features/Home/presentation/manager/date_time_cubit/date_time_cubit.dart';
 import 'package:focusflow/Features/Home/presentation/manager/task_cubit/task_cubit_cubit.dart';
 import 'package:focusflow/Features/Home/presentation/manager/task_cubit/task_cubit_state.dart';
+import 'package:focusflow/Features/Home/presentation/views/task/widgets/event.dart';
 import 'package:focusflow/Features/Home/presentation/views/task/widgets/task_list_app_bar.dart';
 import 'package:focusflow/Features/Home/presentation/views/task/widgets/task_list_tile.dart';
 import 'package:focusflow/constant.dart';
@@ -21,6 +24,7 @@ class _TaskViewState extends State<TaskView> {
   var format = DateFormat("MMM d");
   var formated = DateFormat("EEEE");
   TaskmodelDb taskmodelDb = TaskmodelDb();
+  EventmodelDb eventmodelDb = EventmodelDb();
 
   @override
   void initState() {
@@ -114,6 +118,34 @@ class _TaskViewState extends State<TaskView> {
                   ),
                 ),
               );
+            }
+          },
+        ),
+        BlocConsumer<DateTimeCubit, DateTimeState>(
+          listener: (context, state) {
+            if (state is DateTimeUpdated) {
+              final event = state.newDateTime;
+              eventmodelDb.eventList = event;
+            }
+          },
+          builder: (context, state) {
+            if (state is DateTimeUpdated) {
+              final tasks = state.newDateTime;
+              return SliverList.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    height: 60,
+                    child: EventList(
+                      isClicked: false,
+                      taskName: eventmodelDb.eventList[index][0],
+                      taskStatus: eventmodelDb.eventList[index][1],
+                    ),
+                  );
+                },
+              );
+            } else {
+              return SliverToBoxAdapter(child: Center());
             }
           },
         ),

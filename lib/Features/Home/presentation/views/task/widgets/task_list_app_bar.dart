@@ -1,8 +1,6 @@
 // import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:focusflow/Features/Home/presentation/manager/date_time_cubit/date_time_cubit.dart';
 import 'package:focusflow/constant.dart';
 import 'package:intl/intl.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
@@ -22,6 +20,7 @@ class TaskListAppBarr extends StatefulWidget {
 }
 
 class _TaskListAppBarrState extends State<TaskListAppBarr> {
+  DateTime selectedDate = DateTime(3000, 1, 2, 10, 20);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,25 +51,24 @@ class _TaskListAppBarrState extends State<TaskListAppBarr> {
           ),
         ),
         Expanded(
-          child: BlocBuilder<DateTimeCubit, DateTimeState>(
-            builder: (context, state) {
-              return DatePicker(
-                DateTime.now(),
-                initialSelectedDate: DateTime.now(),
-                selectedTextColor: AppColors.greyColor,
-                selectionColor: AppColors.blackColor,
-                onDateChange: (date) {
-                  setState(() async {
-                    final DateTime? picked = await showOmniDateTimePicker(
-                      type: OmniDateTimePickerType.dateAndTime,
-                      context: context,
-                      firstDate: DateTime(2019),
-                      lastDate: DateTime(2100),
-                      initialDate: date,
-                    );
-                  });
-                },
-              );
+          child: DatePicker(
+            DateTime.now(),
+            initialSelectedDate: DateTime.now(),
+            selectedTextColor: AppColors.greyColor,
+            selectionColor: AppColors.blackColor,
+            onDateChange: (selectedDate) {
+              setState(() async {
+                final DateTime? picked = await showOmniDateTimePicker(
+                  type: OmniDateTimePickerType.dateAndTime,
+                  context: context,
+                  firstDate: DateTime(2019),
+                  lastDate: DateTime(2100),
+                  initialDate: selectedDate,
+                );
+                if (picked != null) {
+                  selectedDate = picked;
+                }
+              });
             },
           ),
         ),
@@ -78,5 +76,3 @@ class _TaskListAppBarrState extends State<TaskListAppBarr> {
     );
   }
 }
-
-class SubjectBloc {}
