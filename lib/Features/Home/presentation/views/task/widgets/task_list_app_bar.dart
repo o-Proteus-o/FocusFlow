@@ -1,6 +1,8 @@
 // import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:focusflow/Features/Home/presentation/manager/date_time_cubit/date_time_cubit.dart';
 import 'package:focusflow/constant.dart';
 import 'package:intl/intl.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
@@ -49,26 +51,34 @@ class _TaskListAppBarrState extends State<TaskListAppBarr> {
             ],
           ),
         ),
-        Expanded(
-          child: DatePicker(
-            DateTime.now(),
-            initialSelectedDate: DateTime.now(),
-            selectedTextColor: AppColors.greyColor,
-            selectionColor: AppColors.blackColor,
-            onDateChange: (date) {
-              setState(() {
-                showOmniDateTimePicker(
-                  type: OmniDateTimePickerType.dateAndTime,
-                  context: context,
-                  firstDate: DateTime(2019),
-                  lastDate: DateTime(2100),
-                  initialDate: date,
-                );
-              });
-            },
-          ),
-        ),
+        // Expanded(
+        //   child: BlocConsumer<DateTimeCubit, DateTimeState>(
+        //     listener: (context, state) {
+        //     },
+        //     builder: (context, state) {
+        //       return DatePicker(
+        //         DateTime.now(),
+        //         initialSelectedDate: DateTime.now(),
+        //         selectedTextColor: AppColors.greyColor,
+        //         selectionColor: AppColors.blackColor,
+        //         onDateChange: (date) {
+        //           setState(() {
+        //             showOmniDateTimePicker(
+        //               type: OmniDateTimePickerType.dateAndTime,
+        //               context: context,
+        //               firstDate: DateTime(2019),
+        //               lastDate: DateTime(2100),
+        //               initialDate: date,
+        //             );
+        //           });
+        //         },
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }
 }
+
+class SubjectBloc {}
