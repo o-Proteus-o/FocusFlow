@@ -3,6 +3,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:focusflow/constant.dart';
 import 'package:intl/intl.dart';
+import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 class TaskListAppBarr extends StatefulWidget {
   const TaskListAppBarr({
@@ -56,25 +57,12 @@ class _TaskListAppBarrState extends State<TaskListAppBarr> {
             selectionColor: AppColors.blackColor,
             onDateChange: (date) {
               setState(() {
-                showDatePicker(
+                showOmniDateTimePicker(
+                  type: OmniDateTimePickerType.dateAndTime,
                   context: context,
-                  firstDate: DateTime(2016),
-                  lastDate: DateTime(20235),
+                  firstDate: DateTime(2019),
+                  lastDate: DateTime(2100),
                   initialDate: date,
-                  builder: (context, child) {
-                    return Theme(
-                      data: ThemeData.light().copyWith(
-                        primaryColor: AppColors.blackColor,
-                        colorScheme: ColorScheme.light(
-                          primary: AppColors.blackColor,
-                        ),
-                        buttonTheme: ButtonThemeData(
-                          textTheme: ButtonTextTheme.primary,
-                        ),
-                      ),
-                      child: child!,
-                    );
-                  },
                 );
               });
             },

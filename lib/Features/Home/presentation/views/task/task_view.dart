@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focusflow/Features/Home/data/model/task_model.dart';
 import 'package:focusflow/Features/Home/presentation/manager/task_cubit/task_cubit_cubit.dart';
 import 'package:focusflow/Features/Home/presentation/manager/task_cubit/task_cubit_state.dart';
-import 'package:focusflow/Features/Home/presentation/views/task/widgets/event.dart';
 import 'package:focusflow/Features/Home/presentation/views/task/widgets/task_list_app_bar.dart';
 import 'package:focusflow/Features/Home/presentation/views/task/widgets/task_list_tile.dart';
 import 'package:focusflow/constant.dart';
@@ -87,7 +86,7 @@ class _TaskViewState extends State<TaskView> {
                           value ?? false,
                         );
                       },
-                      onPressed: (context) {
+                      onDelete: (context) {
                         context.read<TaskCubit>().deleteTask(index);
                       },
                     ),
@@ -96,46 +95,18 @@ class _TaskViewState extends State<TaskView> {
               );
             }
             return SliverToBoxAdapter(
-              child: Center(child: CircularProgressIndicator()),
-            );
-          },
-        ),
-        SliverToBoxAdapter(
-          child: EventList(
-            isClicked: true,
-            taskName: "Meeting",
-            taskStatus: "Done!",
-          ),
-        ),
-        BlocBuilder<TaskCubit, TaskState>(
-          builder: (context, state) {
-            if (state is TaskLoaded) {
-              final tasks = state.taskList;
-              return SliverList.builder(
-                itemCount: tasks.length,
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    height: 60,
-                    child: TaskListTile(
-                      isClicked: tasks[index][1],
-                      taskName: "${tasks[index][0]}",
-                      taskStatus: tasks[index][1] ? "Done!" : "InProgress",
-                      onChanged: (value) {
-                        context.read<TaskCubit>().toggleTask(
-                          index,
-                          value ?? false,
-                        );
-                      },
-                      onPressed: (context) {
-                        context.read<TaskCubit>().deleteTask(index);
-                      },
-                    ),
-                  );
-                },
-              );
-            }
-            return SliverToBoxAdapter(
-              child: Center(child: CircularProgressIndicator()),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  "Make A New Task \nAnd Start Your Journey",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blackColor.withOpacity(.6),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             );
           },
         ),

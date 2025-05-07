@@ -30,6 +30,6 @@ class TaskCubit extends Cubit<TaskState> {
 
   void _updateHive() {
     mybox.put("TASKLIST", toDoList);
-    emit(TaskLoaded(List.from(toDoList))); // emit updated state
+    emit(TaskLoaded(List.from(toDoList)));
   }
 }

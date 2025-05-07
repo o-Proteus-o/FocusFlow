@@ -7,14 +7,16 @@ class TaskListTile extends StatefulWidget {
   final String taskName;
   final String taskStatus;
   final void Function(bool?)? onChanged;
-  final void Function(BuildContext)? onPressed;
+  final void Function(BuildContext)? onDelete;
+  // final void Function(BuildContext)? onArchive;
   const TaskListTile({
     super.key,
     required this.isClicked,
     required this.taskName,
     this.onChanged,
     required this.taskStatus,
-    required this.onPressed,
+    required this.onDelete,
+    // required this.onArchive,
   });
 
   @override
@@ -33,10 +35,22 @@ class _TaskListTileState extends State<TaskListTile> {
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: widget.onPressed,
+              onPressed: widget.onDelete,
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
               icon: Icons.delete,
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ],
+        ),
+        startActionPane: ActionPane(
+          motion: const BehindMotion(),
+          children: [
+            SlidableAction(
+              onPressed: widget.onDelete,
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              icon: Icons.archive,
               borderRadius: BorderRadius.circular(16),
             ),
           ],
