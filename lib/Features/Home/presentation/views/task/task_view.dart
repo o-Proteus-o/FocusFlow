@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focusflow/Features/Home/data/model/event_model.dart';
 import 'package:focusflow/Features/Home/data/model/task_model.dart';
-import 'package:focusflow/Features/Home/presentation/manager/task_cubit/task_cubit_cubit.dart';
-import 'package:focusflow/Features/Home/presentation/manager/task_cubit/task_cubit_state.dart';
+import 'package:focusflow/Features/Home/presentation/manager/event_cubit/event_cubit.dart';
 import 'package:focusflow/Features/Home/presentation/views/task/widgets/event.dart';
+import 'package:focusflow/Features/Home/presentation/views/task/widgets/task_bloc_builder.dart';
 import 'package:focusflow/Features/Home/presentation/views/task/widgets/task_list_app_bar.dart';
-import 'package:focusflow/Features/Home/presentation/views/task/widgets/task_list_tile.dart';
 import 'package:focusflow/constant.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +22,7 @@ class _TaskViewState extends State<TaskView> {
   var format = DateFormat("MMM d");
   var formated = DateFormat("EEEE");
   TaskmodelDb taskmodelDb = TaskmodelDb();
-  EventmodelDb eventmodelDb = EventmodelDb();
+  EventmodelDb eventModelDb = EventmodelDb();
 
   @override
   void initState() {
@@ -34,6 +33,12 @@ class _TaskViewState extends State<TaskView> {
       taskmodelDb.loaddata();
     }
 
+    var myEvent = Hive.box("name");
+    if (myEvent.get("EventList") == null) {
+      eventModelDb.createInitialEvent();
+    } else {
+      eventModelDb.loadEvent();
+    }
     super.initState();
   }
 
@@ -43,20 +48,11 @@ class _TaskViewState extends State<TaskView> {
     });
   }
 
-  List<String> combinedList = [];
-  int taskIndex = 0;
-  int eventIndex = 0;
-
-  // Populate combined list by alternating tasks and events
-  // for (int i = 0; i < (tasks.length + events.length); i++) {
-  //   if (i % 2 == 0 && taskIndex < tasks.length) {
-  //     combinedList.add("Task: ${tasks[taskIndex]}");
-  //     taskIndex++;
-  //   } else if (eventIndex < events.length) {
-  //     combinedList.add("Event: ${events[eventIndex]}");
-  //     eventIndex++;
-  //   }
-  // }
+  void deleteEvent(int index) {
+    setState(() {
+      eventModelDb.eventList.removeAt(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,35 +66,32 @@ class _TaskViewState extends State<TaskView> {
             background: TaskListAppBarr(format: format, formated: formated),
           ),
         ),
-        BlocConsumer<TaskCubit, TaskState>(
+        TaskBlocBuilder(taskmodelDb: taskmodelDb),
+
+        BlocConsumer<EventCubit, EventState>(
           listener: (context, state) {
-            if (state is TaskLoaded) {
-              final tasks = state.taskList;
-              taskmodelDb.toDoList = tasks;
+            if (state is EventLoaded) {
+              final event = state.eventList;
+              eventModelDb.eventList = event;
             }
           },
           builder: (context, state) {
-            if (state is TaskLoaded) {
-              final tasks = state.taskList;
+            if (state is EventLoaded) {
+              final event = state.eventList;
+
               return SliverList.builder(
-                itemCount: tasks.length,
+                itemCount: event.length,
                 itemBuilder: (context, index) {
-                  return SizedBox(
-                    height: 60,
-                    child: TaskListTile(
-                      isClicked: tasks[index][1],
-                      taskName: "${tasks[index][0]}",
-                      taskStatus: tasks[index][1] ? "Done!" : "InProgress",
-                      onChanged: (value) {
-                        context.read<TaskCubit>().toggleTask(
-                          index,
-                          value ?? false,
-                        );
-                      },
-                      onDelete: (context) {
-                        context.read<TaskCubit>().deleteTask(index);
-                      },
-                    ),
+                  return EventList(
+                    isClicked: event[index][1],
+                    taskName: event[index][2],
+                    time: event[3],
+                    onChanged: (value) {
+                      // context.read<EventCubit>().toggleEvent(index, value, day, time);
+                    },
+                    onDelete: (ind) {
+                      context.read<EventCubit>().deleteEvent(index);
+                    },
                   );
                 },
               );
@@ -107,7 +100,7 @@ class _TaskViewState extends State<TaskView> {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(
-                    "Make A New Task \nAnd Start Your Journey",
+                    "Make A New Task Or Event \nAnd Start Your Journey",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

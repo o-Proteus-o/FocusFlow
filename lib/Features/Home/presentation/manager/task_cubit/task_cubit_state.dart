@@ -7,3 +7,5 @@ class TaskLoaded extends TaskState {
 
   TaskLoaded(this.taskList);
 }
+
+class TaskFailed extends TaskState {}

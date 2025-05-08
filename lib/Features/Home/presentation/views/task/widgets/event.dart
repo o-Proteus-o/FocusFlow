@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-// import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:focusflow/constant.dart';
 import 'package:intl/intl.dart';
 
 class EventList extends StatefulWidget {
   final bool isClicked;
   final String taskName;
-  final String taskStatus;
+  final DateTime time;
   final void Function(bool?)? onChanged;
-  final void Function(BuildContext)? onPressed;
+  final void Function(BuildContext)? onDelete;
   const EventList({
     super.key,
     required this.isClicked,
     required this.taskName,
-    required this.taskStatus,
+    required this.time,
     this.onChanged,
-    this.onPressed,
+    this.onDelete,
   });
 
   @override
@@ -24,8 +23,6 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
-  DateTime? selscteDate;
-
   String formatDateTime(DateTime dateTime) {
     return DateFormat('EEEE, MMM d — h:mm a').format(dateTime);
   }
@@ -39,7 +36,7 @@ class _EventListState extends State<EventList> {
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: widget.onPressed,
+              onPressed: widget.onDelete,
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
               icon: Icons.delete,
@@ -77,9 +74,15 @@ class _EventListState extends State<EventList> {
                   color: AppColors.greyColor,
                 ),
                 child: Text(
-                  '${DateFormat('HH:mm a').format(DateTime.now())}',
+                  "${widget.time}",
                   style: TextStyle(fontSize: 16, color: AppColors.blackColor),
                 ),
+              ),
+              Checkbox(
+                value: widget.isClicked,
+                checkColor: Colors.white,
+                activeColor: AppColors.blackColor,
+                onChanged: widget.onChanged,
               ),
             ],
           ),

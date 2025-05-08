@@ -24,8 +24,6 @@ class TaskListTile extends StatefulWidget {
 }
 
 class _TaskListTileState extends State<TaskListTile> {
-  bool isTrue = false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
