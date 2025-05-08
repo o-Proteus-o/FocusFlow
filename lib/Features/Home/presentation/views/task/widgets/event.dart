@@ -25,6 +25,7 @@ class EventList extends StatefulWidget {
 
 class _EventListState extends State<EventList> {
   DateTime? selscteDate;
+
   String formatDateTime(DateTime dateTime) {
     return DateFormat('EEEE, MMM d — h:mm a').format(dateTime);
   }

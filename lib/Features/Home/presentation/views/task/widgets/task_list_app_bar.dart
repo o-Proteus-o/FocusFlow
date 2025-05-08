@@ -21,6 +21,7 @@ class TaskListAppBarr extends StatefulWidget {
 
 class _TaskListAppBarrState extends State<TaskListAppBarr> {
   DateTime selectedDate = DateTime(3000, 1, 2, 10, 20);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,19 +57,18 @@ class _TaskListAppBarrState extends State<TaskListAppBarr> {
             initialSelectedDate: DateTime.now(),
             selectedTextColor: AppColors.greyColor,
             selectionColor: AppColors.blackColor,
-            onDateChange: (selectedDate) {
-              setState(() async {
-                final DateTime? picked = await showOmniDateTimePicker(
-                  type: OmniDateTimePickerType.dateAndTime,
-                  context: context,
-                  firstDate: DateTime(2019),
-                  lastDate: DateTime(2100),
-                  initialDate: selectedDate,
-                );
-                if (picked != null) {
-                  selectedDate = picked;
-                }
-              });
+            onDateChange: (selectedDate) async {
+              final DateTime? picked = await showOmniDateTimePicker(
+                type: OmniDateTimePickerType.dateAndTime,
+                context: context,
+                firstDate: DateTime(2019),
+                lastDate: DateTime(2100),
+                initialDate: selectedDate,
+                borderRadius: BorderRadius.circular(24),
+              );
+              if (picked != null) {
+                selectedDate = picked;
+              }
             },
           ),
         ),
