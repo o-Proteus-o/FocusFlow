@@ -1,3 +1,6 @@
+> ⚠️ FocusFlow is currently is ** Deleted from Google Play so this project is not complited and dead **.  
+> The app is being improved and polished again. Expect new features soon! 
+
 🧠 FocusFlow
 
 📸 FocusFlow UI Preview 
