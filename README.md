@@ -32,17 +32,20 @@ Presentation Layer — UI screens and interaction logic (state management).
 
 Key Libraries Used:
 
-flutter
+## 🛠️ Tech Stack  
 
-flutter_bloc
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)  
 
-get_it
+![flutter_bloc](https://img.shields.io/badge/flutter__bloc-1375BC?style=for-the-badge&logo=flutter&logoColor=white)  
 
-dio
+![get_it](https://img.shields.io/badge/get__it-0175C2?style=for-the-badge&logo=dart&logoColor=white)  
 
-dartz
+![Dio](https://img.shields.io/badge/Dio-FF6B6B?style=for-the-badge&logo=axios&logoColor=white)  
 
-shared_preferences (for saving session data)
+![Dartz](https://img.shields.io/badge/Dartz-4CAF50?style=for-the-badge&logo=dart&logoColor=white)  
+
+![Shared Preferences](https://img.shields.io/badge/Shared%20Preferences-FF9800?style=for-the-badge&logo=googlechrome&logoColor=white)  
+
 
 🚀 Getting Started
 Clone the repository and let's start.
